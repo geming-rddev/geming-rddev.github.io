@@ -1,602 +1,628 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>QuickScan</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no minimal-ui"
-    />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no minimal-ui" />
 
     <link rel="stylesheet" href="./bootstrap.min.css" />
 
     <style type="text/css">
-      .qrcode-merge:hover,
-      .qrcode:hover {
-        box-shadow: 0 0 10px rgba(21, 21, 21, 0.2);
-      }
+        .qrcode-merge:hover,
+        .qrcode:hover {
+            box-shadow: 0 0 10px rgba(21, 21, 21, 0.2);
+        }
 
-      body {
-        color: #969b9d;
-        size: 14px;
-      }
+        body {
+            color: #969b9d;
+            size: 14px;
+        }
 
-      .table-striped > tbody > tr:nth-child(odd) > td,
-      .table-striped > tbody > tr:nth-child(odd) > th {
-        background-color: #fff;
-      }
+        .table-striped>tbody>tr:nth-child(odd)>td,
+        .table-striped>tbody>tr:nth-child(odd)>th {
+            background-color: #fff;
+        }
 
-      .table-striped > tbody > tr {
-        background: #fff;
-      }
+        .table-striped>tbody>tr {
+            background: #fff;
+        }
 
-      .table-striped > tbody > tr:nth-child(2n) {
-        background: #f2f6f8;
-      }
+        .table-striped>tbody>tr:nth-child(2n) {
+            background: #f2f6f8;
+        }
 
-      .table-hover > tbody > tr:hover > td,
-      .table-hover > tbody > tr:hover > th {
-        background-color: #f2f6f8;
-      }
+        .table-hover>tbody>tr:hover>td,
+        .table-hover>tbody>tr:hover>th {
+            background-color: #f2f6f8;
+        }
 
-      .table-hover > tbody > tr > td.warning {
-        background-color: #fff;
-        padding-top: 15px;
-      }
+        .table-hover>tbody>tr>td.warning {
+            background-color: #fff;
+            padding-top: 15px;
+        }
 
-      .qrcode,
-      .qrcode-merge,
-      .qrcode-mobile {
-        padding: 3px;
-        margin-bottom: 26px;
-        cursor: pointer;
-        transition: all 0.25s;
-      }
+        .qrcode,
+        .qrcode-merge,
+        .qrcode-mobile {
+            padding: 3px;
+            margin-bottom: 26px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
 
-      .table-hover > tbody > tr > td.version-update {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: table-caption;
-      }
+        .table-hover>tbody>tr>td.version-update {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: table-caption;
+        }
 
-      .version-update {
-        width: 90%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
+        .version-update {
+            width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-      .table-hover > tbody > tr.warning:hover > td,
-      .table-hover > tbody > tr.warning:hover > th,
-      .table-hover > tbody > tr > td.warning:hover,
-      .table-hover > tbody > tr > th.warning:hover {
-        color: #7c8183;
-        background-color: #fff;
-      }
+        .table-hover>tbody>tr.warning:hover>td,
+        .table-hover>tbody>tr.warning:hover>th,
+        .table-hover>tbody>tr>td.warning:hover,
+        .table-hover>tbody>tr>th.warning:hover {
+            color: #7c8183;
+            background-color: #fff;
+        }
 
-      #header {
-        background: url(./top_bg_middle.png) top center no-repeat;
-        height: 260px;
-      }
-
-      .qrcode,
-      .qrcode-mobile {
-        width: 110px;
-        height: 110px;
-        border: 1px solid #c2c2c2;
-        margin-top: -26px;
-      }
-
-      .qrcode:hover {
-        transform: scale(1.4);
-        border: none;
-      }
-
-      .qrcode-merge {
-        width: 140px;
-        height: 140px;
-        border: 1px solid #c2c2c2;
-        margin-top: 10px;
-      }
-
-      .qrcode-merge:hover {
-        transform: scale(1.1);
-        border: none;
-      }
-
-      .loading-scale {
-        -webkit-animation: rotate 0.6s linear infinite;
-        animation: rotate 0.6s linear infinite;
-        background: 0 0;
-        transition: all 0.25s;
-        transform: scale(0.5);
-      }
-
-      @media (min-width: 1200px) {
         #header {
-          background: url(./top_bg.png) top center no-repeat;
-          height: 300px;
+            background: url(./top_bg_middle.png) top center no-repeat;
+            height: 260px;
         }
 
-        .qrcode {
-          margin-top: 0;
-          margin-bottom: 0;
+        .qrcode,
+        .qrcode-mobile {
+            width: 110px;
+            height: 110px;
+            border: 1px solid #c2c2c2;
+            margin-top: -26px;
         }
-      }
 
-      @media (max-width: 770px) {
-        #header {
-          background: url(./top_bg_mobile.png) top center no-repeat;
-          height: 200px;
+        .qrcode:hover {
+            transform: scale(1.4);
+            border: none;
         }
-      }
 
-      @media screen and (-webkit-min-device-pixel-ratio: 2),
+        .qrcode-merge {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #c2c2c2;
+            margin-top: 10px;
+        }
+
+        .qrcode-merge:hover {
+            transform: scale(1.1);
+            border: none;
+        }
+
+        .loading-scale {
+            -webkit-animation: rotate 0.6s linear infinite;
+            animation: rotate 0.6s linear infinite;
+            background: 0 0;
+            transition: all 0.25s;
+            transform: scale(0.5);
+        }
+
+        @media (min-width: 1200px) {
+            #header {
+                background: url(./top_bg.png) top center no-repeat;
+                height: 300px;
+            }
+
+            .qrcode {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 770px) {
+            #header {
+                background: url(./top_bg_mobile.png) top center no-repeat;
+                height: 200px;
+            }
+        }
+
+        @media screen and (-webkit-min-device-pixel-ratio: 2),
         screen and (max--moz-device-pixel-ratio: 2) {
-        #header {
-          background: url(./top_bg_mobile_ratio.png) top center no-repeat;
-          background-size: 100% auto;
-          height: 200px;
-        }
-      }
-
-      #appicon-bg {
-        background: top center no-repeat #fff;
-        width: 160px;
-        height: 160px;
-        background-size: 100% auto;
-        border: none;
-        margin: -150px auto 30px;
-        text-align: center;
-      }
-
-      .appicon {
-        border: none;
-        width: 100px;
-        height: 100px;
-        margin-top: 34px;
-      }
-
-      #password {
-        width: 70%;
-        margin: 20px auto;
-        background: #f5f8fb;
-      }
-
-      .separate-line {
-        border-top: 1px solid #e6e6e6;
-        margin-top: 60px;
-        margin-bottom: 40px;
-      }
-
-      .devider.devider-dotted,
-      .table > tbody > tr > td,
-      .table > tbody > tr > th,
-      .table > tfoot > tr > td,
-      .table > tfoot > tr > th,
-      .table > thead > tr > td,
-      .table > thead > tr > th {
-        border-top: 1px solid #e7ebed;
-      }
-
-      .install-btn {
-        padding-top: 10px;
-      }
-
-      .signature-label {
-        position: relative;
-        margin-top: 6px;
-        margin-left: 8px;
-        top: -5px;
-      }
-
-      .signature_in_house {
-        background-color: #40acf1;
-      }
-
-      .signature_app_store {
-        background-color: #95abbd;
-      }
-
-      .signature_no_sign {
-        background-color: #f87044;
-      }
-
-      .signature_adhoc {
-        background-color: #e84d67;
-      }
-
-      .update-description {
-        background: #f2f6f8;
-        padding: 20px;
-        border-radius: 5px;
-      }
-
-      .loading-btn {
-        -webkit-animation: rotate 0.6s linear infinite;
-        animation: rotate 0.6s linear infinite;
-        background: 0 0;
-      }
-
-      .btn-u-lg,
-      .btn-u.btn-u-green,
-      a.btn-u-lg {
-        background-color: #28caad;
-      }
-
-      .btn-u-lg,
-      a.btn-u-lg {
-        font-size: 18px;
-        padding: 8px 60px;
-        border-radius: 30px;
-      }
-
-      .history-item,
-      .pl-50 {
-        padding-left: 50px !important;
-      }
-
-      .history-item {
-        text-align: left;
-        white-space: nowrap;
-        min-width: 120px;
-        width: 30%;
-      }
-
-      .history-item-mobile {
-        text-align: center;
-        min-width: 120px;
-      }
-
-      .pr-50 {
-        padding-right: 50px !important;
-      }
-
-      .btn-u.btn-u-green:active,
-      .btn-u.btn-u-green:focus,
-      .btn-u.btn-u-green:hover {
-        background-color: #24bca1;
-        color: #fff;
-      }
-
-      .servive-block-default,
-      .servive-block-light {
-        background: 0 0;
-      }
-
-      .gray-text,
-      .gray-text li {
-        color: #969b9d;
-      }
-
-      .breadcrumb > li + li:before {
-        content: none;
-      }
-
-      .breadcrumb > li {
-        padding: 0 5px;
-      }
-
-      .content-title {
-        size: 20px;
-        color: #333;
-        margin-bottom: 15px;
-      }
-
-      .appicon-mobile {
-        margin-top: -200px !important;
-      }
-
-      #inhouseClick {
-        color: #e22448;
-      }
-
-      @keyframes mymove {
-        from {
-          padding: 8px 60px;
-          font-size: 18px;
-          border-radius: 30px;
-          opacity: 1;
+            #header {
+                background: url(./top_bg_mobile_ratio.png) top center no-repeat;
+                background-size: 100% auto;
+                height: 200px;
+            }
         }
 
-        to {
-          padding: 12px;
-          font-size: 0;
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          opacity: 0;
-        }
-      }
-
-      @-moz-keyframes mymove {
-        from {
-          padding: 8px 60px;
-          font-size: 18px;
-          border-radius: 30px;
-          opacity: 1;
+        #appicon-bg {
+            background: top center no-repeat #fff;
+            width: 160px;
+            height: 160px;
+            background-size: 100% auto;
+            border: none;
+            margin: -150px auto 30px;
+            text-align: center;
         }
 
-        to {
-          padding: 12px;
-          font-size: 0;
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          opacity: 0;
-        }
-      }
-
-      @-webkit-keyframes mymove {
-        from {
-          padding: 8px 60px;
-          font-size: 18px;
-          border-radius: 30px;
-          opacity: 1;
+        .appicon {
+            border: none;
+            width: 100px;
+            height: 100px;
+            margin-top: 34px;
         }
 
-        to {
-          padding: 12px;
-          font-size: 0;
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          opacity: 0;
-        }
-      }
-
-      @-o-keyframes mymove {
-        from {
-          padding: 8px 60px;
-          font-size: 18px;
-          border-radius: 30px;
-          opacity: 1;
+        #password {
+            width: 70%;
+            margin: 20px auto;
+            background: #f5f8fb;
         }
 
-        to {
-          padding: 12px;
-          font-size: 0;
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          opacity: 0;
-        }
-      }
-
-      a.btn-newyear {
-        background: #f13e20;
-        border: 1px solid #f13e20;
-        border-radius: 30px;
-        padding: 10px 50px;
-      }
-
-      img.dl {
-        width: 56px;
-        position: absolute;
-        left: -16px;
-        top: -10px;
-      }
-
-      a.btn-newyear:active,
-      a.btn-newyear:focus,
-      a.btn-newyear:hover {
-        background: #fd5337;
-        border: 1px solid #fd5337;
-        color: #fff;
-      }
-
-      @media (max-width: 768px) {
-        table.app_view_history > tbody > tr > td:first-child {
-          padding-left: 30px;
-          text-align: right;
-          width: 48%;
-        }
-      }
-
-      @media (max-width: 320px) {
-        table.app_view_history > tbody > tr > td:first-child {
-          width: 60% !important;
+        .separate-line {
+            border-top: 1px solid #e6e6e6;
+            margin-top: 60px;
+            margin-bottom: 40px;
         }
 
-        table.app_view_history > tbody > tr > td:nth-child(2) {
-          text-align: left;
-          padding-left: 15px;
+        .devider.devider-dotted,
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            border-top: 1px solid #e7ebed;
         }
-      }
 
-      table.app_view_history td {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        word-break: break-all;
-        word-wrap: break-word;
-        text-align: center;
-      }
+        .install-btn {
+            padding-top: 10px;
+        }
 
-      a.btn-lg-default,
-      a.btn-lg-default:focus,
-      a.btn-lg-default:hover {
-        font-size: 18px;
-        padding: 8px 60px;
-        background-color: #666;
-        border-color: #666;
-        border-radius: 30px;
-      }
+        .signature-label {
+            position: relative;
+            margin-top: 6px;
+            margin-left: 8px;
+            top: -5px;
+        }
 
-      span.tryAgain {
-        top: -16px;
-      }
+        .signature_in_house {
+            background-color: #40acf1;
+        }
 
-      #installAnswer {
-        background: #f5f8fb;
-      }
-      @keyframes animate_dots {
-        0% {
-          opacity: 1;
+        .signature_app_store {
+            background-color: #95abbd;
         }
-        to {
-          opacity: 0;
+
+        .signature_no_sign {
+            background-color: #f87044;
         }
-      }
-      @-webkit-keyframes animate_dots {
-        0% {
-          opacity: 1;
+
+        .signature_adhoc {
+            background-color: #e84d67;
         }
-        to {
-          opacity: 0;
+
+        .update-description {
+            background: #f2f6f8;
+            padding: 20px;
+            border-radius: 5px;
         }
-      }
-      .dot0,
-      .dot1 {
-        animation: animate_dots 0.9s infinite;
-        -moz-animation: animate_dots 0.9s infinite;
-        -webkit-animation: animate_dots 0.9s infinite;
-        -o-animation: animate_dots 0.9s infinite;
-      }
-      .dot1 {
-        animation-delay: 0.2s;
-        -webkit-animation-delay: 0.2s;
-      }
-      .dot2 {
-        animation: animate_dots 0.9s infinite;
-        -moz-animation: animate_dots 0.9s infinite;
-        -webkit-animation: animate_dots 0.9s infinite;
-        -o-animation: animate_dots 0.9s infinite;
-        animation-delay: 0.4s;
-        -webkit-animation-delay: 0.4s;
-      }
-      .dots_item {
-        display: inline-block;
-        margin-right: 5px;
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #4886ff;
-      }
-      .verify-icon {
-        position: absolute;
-        width: 100%;
-        margin-top: 70px;
-        text-align: center;
-      }
-      .t-mask {
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        _position: absolute;
-        left: 0;
-        top: 0;
-        background: #000;
-        opacity: 0.5;
-        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
-        z-index: 2000000000;
-      }
+
+        .loading-btn {
+            -webkit-animation: rotate 0.6s linear infinite;
+            animation: rotate 0.6s linear infinite;
+            background: 0 0;
+        }
+
+        .btn-u-lg,
+        .btn-u.btn-u-green,
+        a.btn-u-lg {
+            background-color: #28caad;
+        }
+
+        .btn-u-lg,
+        a.btn-u-lg {
+            font-size: 18px;
+            padding: 8px 60px;
+            border-radius: 30px;
+        }
+
+        .history-item,
+        .pl-50 {
+            padding-left: 50px !important;
+        }
+
+        .history-item {
+            text-align: left;
+            white-space: nowrap;
+            min-width: 120px;
+            width: 30%;
+        }
+
+        .history-item-mobile {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .pr-50 {
+            padding-right: 50px !important;
+        }
+
+        .btn-u.btn-u-green:active,
+        .btn-u.btn-u-green:focus,
+        .btn-u.btn-u-green:hover {
+            background-color: #24bca1;
+            color: #fff;
+        }
+
+        .servive-block-default,
+        .servive-block-light {
+            background: 0 0;
+        }
+
+        .gray-text,
+        .gray-text li {
+            color: #969b9d;
+        }
+
+        .breadcrumb>li+li:before {
+            content: none;
+        }
+
+        .breadcrumb>li {
+            padding: 0 5px;
+        }
+
+        .content-title {
+            size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .appicon-mobile {
+            margin-top: -200px !important;
+        }
+
+        #inhouseClick {
+            color: #e22448;
+        }
+
+        @keyframes mymove {
+            from {
+                padding: 8px 60px;
+                font-size: 18px;
+                border-radius: 30px;
+                opacity: 1;
+            }
+
+            to {
+                padding: 12px;
+                font-size: 0;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                opacity: 0;
+            }
+        }
+
+        @-moz-keyframes mymove {
+            from {
+                padding: 8px 60px;
+                font-size: 18px;
+                border-radius: 30px;
+                opacity: 1;
+            }
+
+            to {
+                padding: 12px;
+                font-size: 0;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes mymove {
+            from {
+                padding: 8px 60px;
+                font-size: 18px;
+                border-radius: 30px;
+                opacity: 1;
+            }
+
+            to {
+                padding: 12px;
+                font-size: 0;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                opacity: 0;
+            }
+        }
+
+        @-o-keyframes mymove {
+            from {
+                padding: 8px 60px;
+                font-size: 18px;
+                border-radius: 30px;
+                opacity: 1;
+            }
+
+            to {
+                padding: 12px;
+                font-size: 0;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                opacity: 0;
+            }
+        }
+
+        a.btn-newyear {
+            background: #f13e20;
+            border: 1px solid #f13e20;
+            border-radius: 30px;
+            padding: 10px 50px;
+        }
+
+        img.dl {
+            width: 56px;
+            position: absolute;
+            left: -16px;
+            top: -10px;
+        }
+
+        a.btn-newyear:active,
+        a.btn-newyear:focus,
+        a.btn-newyear:hover {
+            background: #fd5337;
+            border: 1px solid #fd5337;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            table.app_view_history>tbody>tr>td:first-child {
+                padding-left: 30px;
+                text-align: right;
+                width: 48%;
+            }
+        }
+
+        @media (max-width: 320px) {
+            table.app_view_history>tbody>tr>td:first-child {
+                width: 60% !important;
+            }
+
+            table.app_view_history>tbody>tr>td:nth-child(2) {
+                text-align: left;
+                padding-left: 15px;
+            }
+        }
+
+        table.app_view_history td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-break: break-all;
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        a.btn-lg-default,
+        a.btn-lg-default:focus,
+        a.btn-lg-default:hover {
+            font-size: 18px;
+            padding: 8px 60px;
+            background-color: #666;
+            border-color: #666;
+            border-radius: 30px;
+        }
+
+        span.tryAgain {
+            top: -16px;
+        }
+
+        #installAnswer {
+            background: #f5f8fb;
+        }
+
+        @keyframes animate_dots {
+            0% {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes animate_dots {
+            0% {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .dot0,
+        .dot1 {
+            animation: animate_dots 0.9s infinite;
+            -moz-animation: animate_dots 0.9s infinite;
+            -webkit-animation: animate_dots 0.9s infinite;
+            -o-animation: animate_dots 0.9s infinite;
+        }
+
+        .dot1 {
+            animation-delay: 0.2s;
+            -webkit-animation-delay: 0.2s;
+        }
+
+        .dot2 {
+            animation: animate_dots 0.9s infinite;
+            -moz-animation: animate_dots 0.9s infinite;
+            -webkit-animation: animate_dots 0.9s infinite;
+            -o-animation: animate_dots 0.9s infinite;
+            animation-delay: 0.4s;
+            -webkit-animation-delay: 0.4s;
+        }
+
+        .dots_item {
+            display: inline-block;
+            margin-right: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4886ff;
+        }
+
+        .verify-icon {
+            position: absolute;
+            width: 100%;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .t-mask {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            _position: absolute;
+            left: 0;
+            top: 0;
+            background: #000;
+            opacity: 0.5;
+            filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+            z-index: 2000000000;
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="row-fluid  margin-bottom-20" style="z-index:-2;">
-      <div id="header"></div>
+        <div id="header"></div>
     </div>
     <div class="container content">
-      <div class="view row">
-        <div class="span12 margin-bottom-30 " id="appicon-bg">
-          <img src="./f300.png" class="appicon" />
-        </div>
-        <div class="span12" style="text-align:center;padding-top:10px;">
-          <h2 style="color:#333;size:24px;margin-bottom: -5px;">
-            <svg
-              enable-background="new 0 0 32 32"
-              height="32px"
-              id="Layer_1"
-              version="1.0"
-              viewBox="0 0 32 32"
-              width="32px"
-              xml:space="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <g>
-                <path
-                  d="M5,8.978c-1.104,0-2,0.896-2,2v8c0,1.104,0.896,2,2,2s2-0.896,2-2v-8C7,9.873,6.104,8.978,5,8.978z"
-                  fill="#85C808"
-                />
-                <path
-                  d="M27,8.978c-1.104,0-2,0.896-2,2v8c0,1.104,0.896,2,2,2s2-0.896,2-2v-8C29,9.873,28.104,8.978,27,8.978z"
-                  fill="#85C808"
-                />
-                <path
-                  d="M8,24.978h2v5c0,1.104,0.896,2,2,2s2-0.896,2-2v-5h4v5c0,1.104,0.896,2,2,2s2-0.896,2-2v-5h2v-15H8V24.978z   "
-                  fill="#85C808"
-                />
-                <path
-                  d="M20.723,2.53l1.027-1.779c0.139-0.24,0.057-0.545-0.184-0.684c-0.238-0.139-0.545-0.057-0.683,0.184   l-1.001,1.734C18.732,1.345,17.41,0.978,16,0.978c-1.409,0-2.731,0.367-3.882,1.008L11.116,0.25   c-0.139-0.239-0.443-0.321-0.684-0.183c-0.238,0.138-0.32,0.443-0.183,0.683l1.028,1.78C9.294,3.986,8,6.328,8,8.978h16   C24,6.328,22.706,3.986,20.723,2.53z M13,5.978c-0.553,0-1-0.447-1-1s0.447-1,1-1s1,0.447,1,1S13.553,5.978,13,5.978z M19,5.978   c-0.553,0-1-0.447-1-1s0.447-1,1-1s1,0.447,1,1S19.553,5.978,19,5.978z"
-                  fill="#85C808"
-                />
-              </g>
-              <g />
-              <g />
-              <g />
-              <g />
-              <g />
-              <g />
-            </svg>
-            QuickScan
-            <span class="label label-danger signature-label signature_in_house "
-              >企业版</span
-            >
-          </h2>
-        </div>
-
-        <div class="span12 gray-text " style="text-align:center;">
-          <ul class="breadcrumb ">
-            <li>版本：1.0.2 (build 8)</li>
-            <li>大小：14.3 MB</li>
-
-            <li>更新时间 ：<span id="qs-time">--</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <div
-        id=""
-        class="view row margin-bottom-30 col-md-6 col-md-offset-3"
-        style="padding-top:26px;"
-      >
-        <div class="col-md-12">
-          <div class="span12 gray-text" style="text-align:center;">
-            <a
-              href="https://raw.githubusercontent.com/geming-rddev/quick-scan-info/master/quickscan.apk"
-            >
-              <img src="./qrcode.png" class="qrcode " />
-            </a>
-          </div>
-        </div>
-        <div class="col-md-12" style="margin-top:20px;">
-          <div class="row mb-10 install-btn">
-            <div class="span12 margin-bottom-20" style="text-align:center;">
-              <div class="spinner">
-                <a
-                  href="https://raw.githubusercontent.com/geming-rddev/quick-scan-info/master/quickscan.apk"
-                  id="down_load"
-                  class="btn-u btn-u-lg  "
-                >
-                  点击安装
-                </a>
-              </div>
+        <div class="view row">
+            <div class="span12 margin-bottom-30 " id="appicon-bg">
+                <img src="./f300.png" class="appicon" />
             </div>
-          </div>
+            <div class="span12" style="text-align:center;padding-top:10px;">
+                <h2 style="color:#333;size:24px;margin-bottom: -5px;">
+                    <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
+                        width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g>
+                            <path
+                                d="M5,8.978c-1.104,0-2,0.896-2,2v8c0,1.104,0.896,2,2,2s2-0.896,2-2v-8C7,9.873,6.104,8.978,5,8.978z"
+                                fill="#85C808" />
+                            <path
+                                d="M27,8.978c-1.104,0-2,0.896-2,2v8c0,1.104,0.896,2,2,2s2-0.896,2-2v-8C29,9.873,28.104,8.978,27,8.978z"
+                                fill="#85C808" />
+                            <path
+                                d="M8,24.978h2v5c0,1.104,0.896,2,2,2s2-0.896,2-2v-5h4v5c0,1.104,0.896,2,2,2s2-0.896,2-2v-5h2v-15H8V24.978z   "
+                                fill="#85C808" />
+                            <path
+                                d="M20.723,2.53l1.027-1.779c0.139-0.24,0.057-0.545-0.184-0.684c-0.238-0.139-0.545-0.057-0.683,0.184   l-1.001,1.734C18.732,1.345,17.41,0.978,16,0.978c-1.409,0-2.731,0.367-3.882,1.008L11.116,0.25   c-0.139-0.239-0.443-0.321-0.684-0.183c-0.238,0.138-0.32,0.443-0.183,0.683l1.028,1.78C9.294,3.986,8,6.328,8,8.978h16   C24,6.328,22.706,3.986,20.723,2.53z M13,5.978c-0.553,0-1-0.447-1-1s0.447-1,1-1s1,0.447,1,1S13.553,5.978,13,5.978z M19,5.978   c-0.553,0-1-0.447-1-1s0.447-1,1-1s1,0.447,1,1S19.553,5.978,19,5.978z"
+                                fill="#85C808" />
+                        </g>
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                        <g />
+                    </svg>
+                    QuickScan
+                    <span class="label label-danger signature-label signature_in_house ">企业版</span>
+                </h2>
+            </div>
 
-          <div class="span12 gray-text" style="text-align:center; ">
-            <p style="padding-top:10px;color:#969b9d;">
-              或者用手机扫描二维码安装
-            </p>
-          </div>
+            <div class="span12 gray-text " style="text-align:center;">
+                <ul class="breadcrumb ">
+                    <li>版本：1.0.2 (build 8)</li>
+                    <li>大小：14.3 MB</li>
+
+                    <li>更新时间 ：<span id="qs-time">--</span></li>
+                </ul>
+            </div>
         </div>
-      </div>
+
+        <div id="" class="view row margin-bottom-30 col-md-6 col-md-offset-3" style="padding-top:26px;">
+            <div class="col-md-12">
+                <div class="span12 gray-text" style="text-align:center;">
+                    <a href="https://raw.githubusercontent.com/geming-rddev/quick-scan-info/master/quickscan.apk">
+                        <img src="./qrcode.png" class="qrcode " />
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-top:20px;">
+                <div class="row mb-10 install-btn">
+                    <div class="span12 margin-bottom-20" style="text-align:center;">
+                        <div class="spinner">
+                            <a href="https://raw.githubusercontent.com/geming-rddev/quick-scan-info/master/quickscan.apk"
+                                id="down_load" class="btn-u btn-u-lg  ">
+                                点击安装
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span12 gray-text" style="text-align:center; ">
+                    <p style="padding-top:10px;color:#969b9d;">
+                        或者用手机扫描二维码安装
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
-      document.getElementById("qs-time").innerHTML = '2019-08-05';
+        function main() {
+            var updateTime = new Date(1564988400000);
+            
+            document.getElementById("qs-time").innerHTML = getDateDiff(updateTime);
+            function getDateDiff(dateTimeStamp) {
+                var minute = 1000 * 60;
+                var hour = minute * 60;
+                var day = hour * 24;
+                var month = day * 30;
+
+                var now = new Date().getTime();
+                var diffValue = now - dateTimeStamp;
+                var monthC = diffValue / month;
+                var weekC = diffValue / (7 * day);
+                var dayC = diffValue / day;
+                var hourC = diffValue / hour;
+                var minC = diffValue / minute;
+
+                if (monthC >= 1 && monthC != 2) {
+                    return parseInt(monthC) + " 个月前";
+                }
+                if (weekC >= 1) {
+                    return parseInt(weekC) + " 周前";
+                }
+                if (dayC >= 1) {
+                    return parseInt(dayC) + " 天前";
+                }
+                if (hourC >= 1) {
+                    return parseInt(hourC) + " 个小时前";
+                }
+                if (minC >= 1) {
+                    return parseInt(minC) + " 分钟前";
+                }
+
+                return new Date(dateTimeStamp).getFullYear + '-' + monthC + '-' + dayC;
+            }
+
+        }
+        main();
     </script>
-  </body>
+</body>
+
 </html>
